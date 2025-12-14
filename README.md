@@ -31,24 +31,14 @@ Disseny conceptual complet de la plataforma que amplia les funcionalitats del pr
 * **JavaScript (Vanilla):** Lògica del flux de l'aplicació (gestió d'estats, DOM manipulation, validacions).
 * **Figma:** Eina de disseny per als Wireframes i el disseny final de la interfície.
 
-## 📸 Captures / Previsualització
-
-*(Opcional: Aquí pots pujar una captura de pantalla del teu HTML o del Figma i posar l'enllaç)*
-`![Vista prèvia del disseny](enllaç-a-la-imatge.png)`
-
-## 💿 Instal·lació i Ús
-
-Per provar la simulació HTML en local:
-
-1.  Clona aquest repositori:
-    ```bash
-    git clone [https://github.com/TEU-USUARI/NOM-REPOSITORI.git](https://github.com/TEU-USUARI/NOM-REPOSITORI.git)
-    ```
-2.  Obre el fitxer `index.html` (o `mypersonalshopper.html`) al teu navegador web preferit.
 
 ## 📄 Autors
 
-* **[El Teu Nom]** - *Desenvolupament i Disseny*
+* **Pol Beltran Moncada - 1708836
+Miquel Baranera Aguilera - 1710973
+Héctor Cervelló Navarro - 1708336
+Pau Vidal Martín - 1671799
+**  *Desenvolupament i Disseny*
 
 ---
 *Projecte realitzat com a part del mòdul de Disseny d'Interfícies Web.*
