@@ -1,0 +1,2650 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MyPersonalShopper - El teu assessor de moda personal. Descobreix peces úniques seleccionades per a tu.">
+    <title>MyPersonalShopper - Assessor de Moda Personal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: #eff6ff;
+            --secondary: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --border-light: #f1f5f9;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --radius-sm: 0.5rem;
+            --radius: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            --transition: all 0.2s ease;
+            --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-display: 'Playfair Display', Georgia, serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .navbar-logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), #7c3aed);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .navbar-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .navbar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1rem;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .navbar-nav a:hover,
+        .navbar-nav a.active {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .navbar-nav svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .btn-icon:hover {
+            background: var(--border-light);
+            color: var(--text-primary);
+        }
+
+        .btn-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .btn-icon .badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 18px;
+            height: 18px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border);
+        }
+
+        /* Main Layout */
+        .main-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .progress-step {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--border-light);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #7c3aed);
+            border-radius: 100px;
+            transition: width 0.4s ease;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .step-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .step-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--border-light);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: var(--transition);
+        }
+
+        .step-indicator.active .step-circle {
+            background: var(--primary);
+            color: white;
+        }
+
+        .step-indicator.completed .step-circle {
+            background: var(--success);
+            color: white;
+        }
+
+        .step-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .step-indicator.active .step-label {
+            color: var(--primary);
+        }
+
+        .step-indicator.completed .step-label {
+            color: var(--success);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        /* Forms */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+
+        .form-label .required {
+            color: var(--danger);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 0.75rem 1rem;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 0.9375rem;
+            color: var(--text-primary);
+            background: var(--surface);
+            transition: var(--transition);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-hint {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        .form-error {
+            font-size: 0.8125rem;
+            color: var(--danger);
+            display: none;
+        }
+
+        .form-group.error .form-input,
+        .form-group.error .form-select {
+            border-color: var(--danger);
+        }
+
+        .form-group.error .form-error {
+            display: block;
+        }
+
+        /* Checkbox & Radio Groups */
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .checkbox-item,
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .checkbox-item:hover,
+        .radio-item:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .checkbox-item input,
+        .radio-item input {
+            display: none;
+        }
+
+        .checkbox-item.selected,
+        .radio-item.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .checkbox-item .checkmark,
+        .radio-item .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .radio-item .checkmark {
+            border-radius: 50%;
+        }
+
+        .checkbox-item.selected .checkmark,
+        .radio-item.selected .checkmark {
+            border-color: var(--primary);
+            background: var(--primary);
+        }
+
+        .checkbox-item.selected .checkmark svg,
+        .radio-item.selected .checkmark svg {
+            display: block;
+        }
+
+        .checkbox-item .checkmark svg,
+        .radio-item .checkmark svg {
+            display: none;
+            width: 12px;
+            height: 12px;
+            color: white;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            font-family: inherit;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            border-radius: var(--radius);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--border-light);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--border);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover:not(:disabled) {
+            background: #059669;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover:not(:disabled) {
+            background: #dc2626;
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.8125rem;
+        }
+
+        .btn-icon-only {
+            padding: 0.75rem;
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Personal Shopper Card */
+        .shopper-card {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-light), #faf5ff);
+            border-radius: var(--radius-lg);
+            margin-bottom: 2rem;
+        }
+
+        .shopper-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            box-shadow: var(--shadow);
+        }
+
+        .shopper-info {
+            flex: 1;
+        }
+
+        .shopper-name {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .shopper-specialty {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .shopper-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.125rem;
+        }
+
+        .stars svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--warning);
+            color: var(--warning);
+        }
+
+        .rating-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .rating-count {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .shopper-experience {
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            background: var(--border-light);
+        }
+
+        .product-body {
+            padding: 1rem;
+        }
+
+        .product-brand {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .product-name {
+            font-weight: 600;
+            font-size: 0.9375rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .product-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .product-price {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--primary);
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+        }
+
+        .product-rating svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--warning);
+        }
+
+        /* Selection Cards */
+        .selection-card {
+            display: flex;
+            gap: 1.25rem;
+            padding: 1.25rem;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .selection-card.kept {
+            border-color: var(--success);
+            background: #f0fdf4;
+        }
+
+        .selection-card.returned {
+            border-color: var(--danger);
+            background: #fef2f2;
+        }
+
+        .selection-image {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .selection-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .selection-brand {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .selection-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0.25rem 0 0.5rem;
+        }
+
+        .selection-price {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .selection-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .selection-btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--radius);
+            border: 1.5px solid var(--border);
+            background: white;
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .selection-btn.keep {
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .selection-btn.keep:hover,
+        .selection-btn.keep.active {
+            background: var(--success);
+            color: white;
+        }
+
+        .selection-btn.return {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .selection-btn.return:hover,
+        .selection-btn.return.active {
+            background: var(--danger);
+            color: white;
+        }
+
+        .selection-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Return Reason */
+        .return-reason {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #fef2f2;
+            border-radius: var(--radius);
+            border: 1px solid #fecaca;
+        }
+
+        .return-reason-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--danger);
+        }
+
+        .return-reason-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .return-reason-btn {
+            padding: 0.375rem 0.75rem;
+            border: 1.5px solid #fecaca;
+            border-radius: var(--radius-sm);
+            background: white;
+            font-family: inherit;
+            font-size: 0.8125rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .return-reason-btn:hover,
+        .return-reason-btn.active {
+            border-color: var(--danger);
+            background: var(--danger);
+            color: white;
+        }
+
+        .return-comment {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #fecaca;
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 0.8125rem;
+            resize: vertical;
+        }
+
+        /* Order Summary */
+        .order-summary {
+            background: var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+        }
+
+        .order-summary-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            font-size: 0.9375rem;
+        }
+
+        .order-item-name {
+            color: var(--text-secondary);
+        }
+
+        .order-item-price {
+            font-weight: 600;
+        }
+
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+            border-top: 2px solid var(--border);
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+
+        /* Payment Form */
+        .payment-section {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 2rem;
+        }
+
+        .payment-card {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-card-label {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-card-number {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .payment-card-details {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .payment-card-name {
+            font-size: 0.875rem;
+        }
+
+        .payment-card-expiry {
+            font-size: 0.875rem;
+        }
+
+        /* Confirmation */
+        .confirmation {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .confirmation-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        .confirmation-icon svg {
+            width: 40px;
+            height: 40px;
+            color: white;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .confirmation-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .confirmation-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+
+        .order-details {
+            background: var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            text-align: left;
+        }
+
+        .order-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .order-detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .order-detail-label {
+            color: var(--text-secondary);
+        }
+
+        .order-detail-value {
+            font-weight: 600;
+        }
+
+        .order-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.375rem 0.75rem;
+            background: var(--warning);
+            color: white;
+            border-radius: var(--radius-sm);
+            font-size: 0.8125rem;
+            font-weight: 600;
+        }
+
+        /* Data Actions */
+        .data-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        /* Sections (mock) */
+        .section-mock {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .section-mock-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--border-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .section-mock-icon svg {
+            width: 40px;
+            height: 40px;
+            color: var(--text-muted);
+        }
+
+        .section-mock-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-mock-text {
+            color: var(--text-secondary);
+            max-width: 400px;
+            margin: 0 auto 1.5rem;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .alert svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            margin-top: 0.125rem;
+        }
+
+        .alert-success {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            color: #166534;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+        }
+
+        .alert-info {
+            background: var(--primary-light);
+            border: 1px solid #93c5fd;
+            color: #1e40af;
+        }
+
+        /* Utils */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-0 { margin-bottom: 0; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 2rem; }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .payment-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .shopper-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .selection-card {
+                flex-direction: column;
+            }
+
+            .selection-image {
+                width: 100%;
+                height: 150px;
+            }
+
+            .selection-actions {
+                flex-direction: row;
+            }
+        }
+
+        /* Focus styles for accessibility */
+        :focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" role="navigation" aria-label="Navegació principal">
+        <div class="navbar-container">
+            <a href="#" class="navbar-brand" aria-label="MyPersonalShopper - Inici">
+                <div class="navbar-logo">M</div>
+                <span class="navbar-title">MyPersonalShopper</span>
+            </a>
+
+            <ul class="navbar-nav">
+                <li>
+                    <a href="#" data-section="wizard" class="active" aria-current="page">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                        Inici
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-section="catalog">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                        </svg>
+                        Catàleg
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-section="orders">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                        </svg>
+                        Comandes
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-section="chat">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        Xat
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-section="subscription">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg>
+                        Subscripció
+                    </a>
+                </li>
+            </ul>
+
+            <div class="navbar-actions">
+                <button class="btn-icon" aria-label="Notificacions">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                    <span class="badge">3</span>
+                </button>
+                <button class="btn-icon mobile-menu-btn" aria-label="Menú">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <img src="https://i.pravatar.cc/100?img=32" alt="Avatar usuari" class="avatar">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Alert container -->
+        <div id="alertContainer" aria-live="polite"></div>
+
+        <!-- Wizard Section -->
+        <section id="wizardSection">
+            <!-- Progress -->
+            <div class="progress-container">
+                <div class="progress-header">
+                    <span class="progress-title" id="progressTitle">Crea el teu perfil</span>
+                    <span class="progress-step" id="progressStep">Pas 1 de 4</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 25%"></div>
+                </div>
+                <div class="progress-steps">
+                    <div class="step-indicator active" data-step="1">
+                        <div class="step-circle">1</div>
+                        <span class="step-label">Perfil</span>
+                    </div>
+                    <div class="step-indicator" data-step="2">
+                        <div class="step-circle">2</div>
+                        <span class="step-label">Recomanacions</span>
+                    </div>
+                    <div class="step-indicator" data-step="3">
+                        <div class="step-circle">3</div>
+                        <span class="step-label">Selecció</span>
+                    </div>
+                    <div class="step-indicator" data-step="4">
+                        <div class="step-circle">4</div>
+                        <span class="step-label">Pagament</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1: Profile -->
+            <div id="step1" class="step-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Registra el teu perfil</h1>
+                        <p class="card-subtitle">Ajuda'ns a conèixer-te per oferir-te la millor experiència personalitzada</p>
+                    </div>
+                    <div class="card-body">
+                        <form id="profileForm" novalidate>
+                            <div class="form-grid">
+                                <!-- Personal Info -->
+                                <div class="form-group">
+                                    <label class="form-label" for="name">Nom complet <span class="required">*</span></label>
+                                    <input type="text" id="name" class="form-input" placeholder="El teu nom" required aria-required="true">
+                                    <span class="form-error">Si us plau, introdueix el teu nom</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="email">Correu electrònic <span class="required">*</span></label>
+                                    <input type="email" id="email" class="form-input" placeholder="exemple@email.com" required aria-required="true">
+                                    <span class="form-error">Si us plau, introdueix un email vàlid</span>
+                                </div>
+
+                                <!-- Sizes -->
+                                <div class="form-group">
+                                    <label class="form-label" for="shirtSize">Talla camisa/samarreta <span class="required">*</span></label>
+                                    <select id="shirtSize" class="form-select" required aria-required="true">
+                                        <option value="">Selecciona talla</option>
+                                        <option value="XS">XS</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
+                                    </select>
+                                    <span class="form-error">Si us plau, selecciona una talla</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="pantsSize">Talla pantaló <span class="required">*</span></label>
+                                    <select id="pantsSize" class="form-select" required aria-required="true">
+                                        <option value="">Selecciona talla</option>
+                                        <option value="36">36</option>
+                                        <option value="38">38</option>
+                                        <option value="40">40</option>
+                                        <option value="42">42</option>
+                                        <option value="44">44</option>
+                                        <option value="46">46</option>
+                                        <option value="48">48</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="shoeSize">Talla sabates <span class="required">*</span></label>
+                                    <select id="shoeSize" class="form-select" required aria-required="true">
+                                        <option value="">Selecciona talla</option>
+                                        <option value="36">36</option>
+                                        <option value="37">37</option>
+                                        <option value="38">38</option>
+                                        <option value="39">39</option>
+                                        <option value="40">40</option>
+                                        <option value="41">41</option>
+                                        <option value="42">42</option>
+                                        <option value="43">43</option>
+                                        <option value="44">44</option>
+                                        <option value="45">45</option>
+                                    </select>
+                                </div>
+
+                                <!-- Style Preference -->
+                                <div class="form-group">
+                                    <label class="form-label">Estil preferit <span class="required">*</span></label>
+                                    <div class="radio-group" id="styleGroup" role="radiogroup" aria-required="true">
+                                        <label class="radio-item" tabindex="0" role="radio" aria-checked="false">
+                                            <input type="radio" name="style" value="casual">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Casual
+                                        </label>
+                                        <label class="radio-item" tabindex="0" role="radio" aria-checked="false">
+                                            <input type="radio" name="style" value="oficina">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Oficina
+                                        </label>
+                                        <label class="radio-item" tabindex="0" role="radio" aria-checked="false">
+                                            <input type="radio" name="style" value="street">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Street
+                                        </label>
+                                        <label class="radio-item" tabindex="0" role="radio" aria-checked="false">
+                                            <input type="radio" name="style" value="elegant">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Elegant
+                                        </label>
+                                    </div>
+                                    <span class="form-error">Si us plau, selecciona un estil</span>
+                                </div>
+
+                                <!-- Favorite Colors -->
+                                <div class="form-group">
+                                    <label class="form-label">Colors preferits</label>
+                                    <div class="checkbox-group" id="favoriteColors">
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="negre">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Negre
+                                        </label>
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="blanc">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Blanc
+                                        </label>
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="blau">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Blau
+                                        </label>
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="gris">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Gris
+                                        </label>
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="beix">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Beix
+                                        </label>
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="verd">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Verd
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Avoid Colors -->
+                                <div class="form-group">
+                                    <label class="form-label">Colors a evitar</label>
+                                    <div class="checkbox-group" id="avoidColors">
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="groc">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Groc
+                                        </label>
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="taronja">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Taronja
+                                        </label>
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="rosa">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Rosa
+                                        </label>
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="vermell">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Vermell
+                                        </label>
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="lila">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Lila
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Favorite Brands -->
+                                <div class="form-group full-width">
+                                    <label class="form-label">Marques favorites</label>
+                                    <div class="checkbox-group" id="favoriteBrands">
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="Zara">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Zara
+                                        </label>
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="H&M">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            H&M
+                                        </label>
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="Mango">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Mango
+                                        </label>
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="Massimo Dutti">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Massimo Dutti
+                                        </label>
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="Uniqlo">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            Uniqlo
+                                        </label>
+                                        <label class="checkbox-item" tabindex="0">
+                                            <input type="checkbox" value="COS">
+                                            <span class="checkmark">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                            COS
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Budget -->
+                                <div class="form-group">
+                                    <label class="form-label" for="budgetMin">Pressupost mínim per peça (€)</label>
+                                    <input type="number" id="budgetMin" class="form-input" placeholder="20" min="0">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="budgetMax">Pressupost màxim per peça (€)</label>
+                                    <input type="number" id="budgetMax" class="form-input" placeholder="100" min="0">
+                                </div>
+
+                                <!-- Notes -->
+                                <div class="form-group full-width">
+                                    <label class="form-label" for="notes">Notes addicionals</label>
+                                    <textarea id="notes" class="form-textarea" placeholder="Explica'ns més sobre les teves preferències, ocasions especials, o qualsevol altra informació útil..."></textarea>
+                                    <span class="form-hint">Opcional: Ajuda'ns a entendre millor el teu estil</span>
+                                </div>
+                            </div>
+
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    Guardar perfil i continuar
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Recommendations -->
+            <div id="step2" class="step-content hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">El teu Personal Shopper</h1>
+                        <p class="card-subtitle">Hem assignat un expert que ha seleccionat peces perfectes per a tu</p>
+                    </div>
+                    <div class="card-body">
+                        <!-- Personal Shopper Card -->
+                        <div class="shopper-card">
+                            <img src="https://i.pravatar.cc/200?img=47" alt="Laura Martínez - Personal Shopper" class="shopper-avatar">
+                            <div class="shopper-info">
+                                <h2 class="shopper-name">Laura Martínez</h2>
+                                <p class="shopper-specialty">Especialista en moda sostenible</p>
+                                <div class="shopper-rating">
+                                    <div class="stars" aria-label="Valoració: 4.9 de 5 estrelles">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    </div>
+                                    <span class="rating-value">4.9</span>
+                                    <span class="rating-count">(127 ressenyes)</span>
+                                </div>
+                                <p class="shopper-experience">5 anys d'experiència · Especialitzada en el teu estil</p>
+                            </div>
+                        </div>
+
+                        <h3 class="mb-3" style="font-family: var(--font-display); font-size: 1.25rem;">Peces seleccionades per a tu</h3>
+                        <div class="products-grid" id="recommendationsGrid">
+                            <!-- Products will be rendered here -->
+                        </div>
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary" onclick="goToStep(1)">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                                </svg>
+                                Tornar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-lg" onclick="goToStep(3)">
+                                Continuar
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Selection -->
+            <div id="step3" class="step-content hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Tria les teves peces</h1>
+                        <p class="card-subtitle">Decideix quines peces et quedes i quines retornes</p>
+                    </div>
+                    <div class="card-body">
+                        <div id="selectionList">
+                            <!-- Selection cards will be rendered here -->
+                        </div>
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary" onclick="goToStep(2)">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                                </svg>
+                                Tornar
+                            </button>
+                            <button type="button" class="btn btn-primary btn-lg" id="goToPaymentBtn" onclick="goToStep(4)">
+                                Anar a pagament
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Payment -->
+            <div id="step4" class="step-content hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Pagament i confirmació</h1>
+                        <p class="card-subtitle">Revisa la teva comanda i confirma el pagament</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="payment-section">
+                            <div>
+                                <h3 class="mb-3" style="font-weight: 600;">Informació d'enviament</h3>
+                                <div class="form-grid mb-4">
+                                    <div class="form-group full-width">
+                                        <label class="form-label" for="address">Adreça <span class="required">*</span></label>
+                                        <input type="text" id="address" class="form-input" placeholder="Carrer, número, pis" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="city">Ciutat <span class="required">*</span></label>
+                                        <input type="text" id="city" class="form-input" placeholder="Barcelona" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="postalCode">Codi postal <span class="required">*</span></label>
+                                        <input type="text" id="postalCode" class="form-input" placeholder="08001" required>
+                                    </div>
+                                </div>
+
+                                <h3 class="mb-3" style="font-weight: 600;">Mètode de pagament</h3>
+                                <div class="payment-card">
+                                    <div class="payment-card-label">Targeta de crèdit</div>
+                                    <div class="payment-card-number">•••• •••• •••• 4532</div>
+                                    <div class="payment-card-details">
+                                        <span class="payment-card-name">JOAN GARCIA</span>
+                                        <span class="payment-card-expiry">12/26</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="order-summary" id="orderSummary">
+                                    <h3 class="order-summary-title">Resum de la comanda</h3>
+                                    <!-- Order items will be rendered here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary" onclick="goToStep(3)">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                                </svg>
+                                Tornar
+                            </button>
+                            <button type="button" class="btn btn-success btn-lg" onclick="confirmPayment()">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Pagar i confirmar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Confirmation -->
+            <div id="confirmation" class="step-content hidden">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="confirmation">
+                            <div class="confirmation-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <h1 class="confirmation-title">Comanda confirmada!</h1>
+                            <p class="confirmation-subtitle">Gràcies per confiar en MyPersonalShopper</p>
+
+                            <div class="order-details" id="confirmationDetails">
+                                <!-- Order details will be rendered here -->
+                            </div>
+
+                            <div class="data-actions">
+                                <button type="button" class="btn btn-primary" onclick="downloadJSON()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    Descarregar fitxer
+                                </button>
+                                <button type="button" class="btn btn-outline" onclick="startNewSession()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                    </svg>
+                                    Nova sessió
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Catalog Section (Mock) -->
+        <section id="catalogSection" class="hidden">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-mock">
+                        <div class="section-mock-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                            </svg>
+                        </div>
+                        <h2 class="section-mock-title">Catàleg de productes</h2>
+                        <p class="section-mock-text">Explora la nostra col·lecció completa de peces seleccionades per experts en moda.</p>
+                        <button class="btn btn-primary" onclick="showSection('wizard')">Torna a l'assistent</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Orders Section (Mock) -->
+        <section id="ordersSection" class="hidden">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-mock">
+                        <div class="section-mock-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                            </svg>
+                        </div>
+                        <h2 class="section-mock-title">Les teves comandes</h2>
+                        <p class="section-mock-text">Consulta l'historial de les teves comandes i segueix l'estat dels enviaments.</p>
+                        <button class="btn btn-primary" onclick="showSection('wizard')">Torna a l'assistent</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chat Section (Mock) -->
+        <section id="chatSection" class="hidden">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-mock">
+                        <div class="section-mock-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                            </svg>
+                        </div>
+                        <h2 class="section-mock-title">Xat amb el teu shopper</h2>
+                        <p class="section-mock-text">Parla directament amb el teu personal shopper per resoldre qualsevol dubte.</p>
+                        <button class="btn btn-primary" onclick="showSection('wizard')">Torna a l'assistent</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subscription Section (Mock) -->
+        <section id="subscriptionSection" class="hidden">
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-mock">
+                        <div class="section-mock-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                            </svg>
+                        </div>
+                        <h2 class="section-mock-title">Subscripció Premium</h2>
+                        <p class="section-mock-text">Descobreix els avantatges exclusius de ser membre premium.</p>
+                        <button class="btn btn-primary" onclick="showSection('wizard')">Torna a l'assistent</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Actions (visible in all steps) -->
+        <div class="data-actions" id="dataActions">
+            <button type="button" class="btn btn-outline btn-sm" onclick="downloadJSON()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Descarregar fitxer
+            </button>
+            <label class="btn btn-outline btn-sm" tabindex="0" style="cursor: pointer;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                </svg>
+                Carregar fitxer
+                <input type="file" class="file-input" id="fileInput" accept=".json" onchange="importJSON(event)">
+            </label>
+        </div>
+    </main>
+
+    <script>
+        // ========================================
+        // DATA
+        // ========================================
+
+        const PRODUCTS = [
+            { id: 1, brand: 'Zara', name: 'Samarreta bàsica de cotó orgànic', price: 25.95, rating: 4.5, category: 'casual', image: 'https://es.benetton.com/dw/image/v2/BBSF_PRD/on/demandware.static/-/Sites-ucb-master/default/dw1aae3b4a/images/Full_PDP_h/01_25A_3GA2E16F9_0C5_F.jpg?sw=2400&sh=1800' },
+            { id: 2, brand: 'Zara', name: 'Pantaló chino slim fit', price: 39.95, rating: 4.3, category: 'oficina', image: 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSOgb89MDLiZ2V3myC0SnGos5F_Hw7_iwafHTW2FeqKdv7YlY1VB02P9YzjvGso8xKHIcF4JBojub7K8Il_EviDcDnXIujV7YH79h1_f5PeD2G9VFRgTuQspDk' },
+            { id: 3, brand: 'H&M', name: 'Jaqueta denim clàssica', price: 49.99, rating: 4.7, category: 'street', image: 'https://img.ltwebstatic.com/v4/j/pi/2025/06/18/02/1750240453c5ef527142c45229f11bf22cd8c1e7e8_thumbnail_750x.webp' },
+            { id: 4, brand: 'H&M', name: 'Polo de punt elegant', price: 29.99, rating: 4.2, category: 'casual', image: 'https://hussars.net/cdn/shop/files/poloAZUL2.jpg?v=1746983437&width=2048' },
+            { id: 5, brand: 'Mango', name: 'Camisa de lli premium', price: 59.99, rating: 4.8, category: 'oficina', image: 'https://assets.hermes.com/is/image/hermesproduct/camisa-masculina-motivo-mosaique--6E0602DB02-worn-1-0-0-800-800_g.jpg' },
+            { id: 6, brand: 'Mango', name: 'Jersei de caixmir blend', price: 79.99, rating: 4.6, category: 'elegant', image: 'https://assets.hermes.com/is/image/hermesproduct/jersey-de-manga-larga--4H2601D1A3-worn-1-0-0-800-800_g.jpg' },
+            { id: 7, brand: 'Massimo Dutti', name: 'Americana de llana', price: 149.00, rating: 4.9, category: 'elegant', image: 'https://www.sastrerialorenzo.com/wp-content/uploads/2019/01/sastreria-lorenzo-americana-morato-superslim-4.b-1.jpg' },
+            { id: 8, brand: 'Massimo Dutti', name: 'Pantaló de vestir', price: 89.95, rating: 4.7, category: 'oficina', image: 'https://static.massimodutti.net/assets/public/e604/910b/e34c488188b6/1c5deaf187c0/00036006800-o1/00036006800-o1.jpg?ts=1757332961305&w=850&f=auto' },
+            { id: 9, brand: 'Uniqlo', name: 'Sudadera amb caputxa', price: 34.90, rating: 4.4, category: 'street', image: 'https://mail.google.com/mail/u/0/?ui=2&ik=33b029f8c2&attid=0.1&permmsgid=msg-a:r404507305716850184&th=19b1c87f11ad05f8&view=fimg&realattid=ii_mj5ma2l90&disp=thd&attbid=ANGjdJ8QTjL2-dmNbv-fbVCgZBvSoGQlffPKQzoQBJ81tWgwOQ0DS6czirsV6cF65jmVtglPXWrnpONYr0xsU_VGwPy_LCxNMBg73GjSeoVnnN5lD_xTTc1G5F0fiIg&ats=2524608000000&sz=w1920-h919&auditContext=forDisplay' },
+            { id: 10, brand: 'Uniqlo', name: 'Pantaló jogger ultralight', price: 29.90, rating: 4.3, category: 'casual', image: 'https://www.calzedonia.com/dw/image/v2/BJHW_PRD/on/demandware.static/-/Sites-CAL_EC_COM/default/dw181747a9/images/MODP1265076F-FI.jpg?sfrm=jpeg' },
+            { id: 11, brand: 'COS', name: 'Jaqueta minimalista', price: 135.00, rating: 4.8, category: 'elegant', image: 'https://static.massimodutti.net/assets/public/1502/36a3/912b41e884a9/3e0b1997306e/03102447800-o1/03102447800-o1.jpg?ts=1760024688790&w=undefined&f=auto' },
+            { id: 12, brand: 'COS', name: 'Samarreta oversize', price: 45.00, rating: 4.5, category: 'street', image: 'https://media.cos.com/assets/001/a6/c3/a6c3adc0c98a2c1b17da4ca88634cf225025904a_xxl-1.jpg?imwidth=2160' },
+            { id: 13, brand: 'Zara', name: 'Bermudes d\'estiu', price: 29.95, rating: 4.1, category: 'casual', image: 'https://www.walashop.com/media/catalog/product/o/n/only15230571medium_blue_denim_1.jpg?quality=80&bg-color=255,255,255&height=400&width=400&canvas=400:400' },
+            { id: 14, brand: 'H&M', name: 'Camisa estampada', price: 24.99, rating: 4.0, category: 'casual', image: 'https://img.joomcdn.net/497d7f47360ea43ce7216c99ecc4b25e41d6b3d7_original.jpeg' },
+            { id: 15, brand: 'Mango', name: 'Blazer estructurat', price: 99.99, rating: 4.6, category: 'oficina', image: 'https://dam.elcorteingles.es/producto/www-001056200100479-s0.jpg?impolicy=Resize&width=967&height=1200' },
+            { id: 16, brand: 'Moda Vic', name: 'Samarreta Casual', price: 9.99, rating: 4.8, category: 'casual', image: 'https://mail.google.com/mail/u/0/?ui=2&ik=33b029f8c2&attid=0.1&permmsgid=msg-a:r-2122269761262058281&th=19b1c842f69707f6&view=fimg&disp=thd&attbid=ANGjdJ9Z9N0gGiUXfaiIkQSuQ-3HHkJopGWXo7msiJYdNwmoR5BcxhXzPoOI8wLw2L0t4e6C2zzvBcEcX-AM1-QxmMwJg02dlr7vOK8AX1mFW6siZR8q_BVGoO8u8mo&ats=2524608000000&sz=w1920-h919&auditContext=forDisplay' }
+        ];
+
+        const RETURN_REASONS = ['Talla incorrecta', 'Color diferent', 'No m\'agrada l\'estil', 'Qualitat deficient', 'Altre'];
+
+        // ========================================
+        // STATE
+        // ========================================
+
+        let state = {
+            profile: null,
+            assignedRecommendations: [],
+            selection: {},
+            returns: [],
+            payment: null,
+            order: null,
+            timestamps: {
+                started: null,
+                profileCompleted: null,
+                selectionCompleted: null,
+                orderCompleted: null
+            },
+            currentStep: 1
+        };
+
+        // ========================================
+        // UTILS
+        // ========================================
+
+        function generateOrderId() {
+            return '#' + Math.floor(10000 + Math.random() * 90000);
+        }
+
+        function formatDate(date) {
+            return new Intl.DateTimeFormat('ca-ES', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }).format(date);
+        }
+
+        function addDays(date, days) {
+            const result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result;
+        }
+
+        function showAlert(message, type = 'info') {
+            const container = document.getElementById('alertContainer');
+            const iconSvg = type === 'success' 
+                ? '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>'
+                : type === 'error'
+                ? '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>'
+                : '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>';
+            
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `${iconSvg}<span>${message}</span>`;
+            container.appendChild(alert);
+            
+            setTimeout(() => alert.remove(), 5000);
+        }
+
+        // ========================================
+        // STATE MANAGEMENT
+        // ========================================
+
+        function saveState() {
+            localStorage.setItem('mypersonalshopper_state', JSON.stringify(state));
+        }
+
+        function loadState() {
+            const saved = localStorage.getItem('mypersonalshopper_state');
+            if (saved) {
+                try {
+                    state = JSON.parse(saved);
+                    return true;
+                } catch (e) {
+                    console.error('Error loading state:', e);
+                }
+            }
+            return false;
+        }
+
+        function downloadJSON() {
+            const dataStr = JSON.stringify(state, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'mypersonalshopper_session.json';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            showAlert('Fitxer descarregat correctament!', 'success');
+        }
+
+        function importJSON(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    state = imported;
+                    saveState();
+                    renderCurrentStep();
+                    showAlert('Sessió importada correctament!', 'success');
+                } catch (error) {
+                    showAlert('Error en llegir el fitxer. Assegura\'t que és un JSON vàlid.', 'error');
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        function startNewSession() {
+            if (confirm('Estàs segur que vols començar una nova sessió? Es perdran les dades actuals.')) {
+                localStorage.removeItem('mypersonalshopper_state');
+                state = {
+                    profile: null,
+                    assignedRecommendations: [],
+                    selection: {},
+                    returns: [],
+                    payment: null,
+                    order: null,
+                    timestamps: {
+                        started: null,
+                        profileCompleted: null,
+                        selectionCompleted: null,
+                        orderCompleted: null
+                    },
+                    currentStep: 1
+                };
+                goToStep(1);
+                showAlert('Nova sessió iniciada!', 'success');
+            }
+        }
+
+        // ========================================
+        // RECOMMENDATIONS
+        // ========================================
+
+        function generateRecommendations(profile) {
+            let filtered = [...PRODUCTS];
+
+            // Filter by favorite brands
+            if (profile.favoriteBrands && profile.favoriteBrands.length > 0) {
+                const brandProducts = filtered.filter(p => profile.favoriteBrands.includes(p.brand));
+                if (brandProducts.length >= 5) {
+                    filtered = brandProducts;
+                }
+            }
+
+            // Filter by budget
+            if (profile.budgetMax) {
+                filtered = filtered.filter(p => p.price <= profile.budgetMax);
+            }
+            if (profile.budgetMin) {
+                filtered = filtered.filter(p => p.price >= profile.budgetMin);
+            }
+
+            // Filter by style preference
+            if (profile.style) {
+                const styleProducts = filtered.filter(p => p.category === profile.style);
+                if (styleProducts.length >= 3) {
+                    // Prioritize style-matching products
+                    filtered = [...styleProducts, ...filtered.filter(p => p.category !== profile.style)];
+                }
+            }
+
+            // Remove duplicates and take top 5
+            const unique = [...new Map(filtered.map(p => [p.id, p])).values()];
+            return unique.slice(0, 5);
+        }
+
+        // ========================================
+        // RENDERING
+        // ========================================
+
+        function renderStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+            
+            // Show current step
+            if (step === 5) {
+                document.getElementById('confirmation').classList.remove('hidden');
+                document.getElementById('dataActions').classList.add('hidden');
+            } else {
+                document.getElementById(`step${step}`).classList.remove('hidden');
+                document.getElementById('dataActions').classList.remove('hidden');
+            }
+
+            // Update progress
+            updateProgress(step);
+
+            // Render step-specific content
+            if (step === 2) renderRecommendations();
+            if (step === 3) renderSelection();
+            if (step === 4) {
+                renderOrderSummary();
+                // Si tenim un perfil creat, posem el nom en majúscules a la targeta
+                if (state.profile && state.profile.name) {
+                    document.querySelector('.payment-card-name').textContent = state.profile.name.toUpperCase();
+                }
+            }
+            if (step === 5) renderConfirmation();
+        }
+
+        function updateProgress(step) {
+            const titles = ['Crea el teu perfil', 'Recomanacions del shopper', 'Tria les teves peces', 'Pagament'];
+            const progressTitle = document.getElementById('progressTitle');
+            const progressStep = document.getElementById('progressStep');
+            const progressFill = document.getElementById('progressFill');
+
+            if (step <= 4) {
+                progressTitle.textContent = titles[step - 1];
+                progressStep.textContent = `Pas ${step} de 4`;
+                progressFill.style.width = `${step * 25}%`;
+            }
+
+            // Update step indicators
+            document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+                indicator.classList.remove('active', 'completed');
+                if (index + 1 < step) {
+                    indicator.classList.add('completed');
+                } else if (index + 1 === step) {
+                    indicator.classList.add('active');
+                }
+            });
+        }
+
+        function renderRecommendations() {
+            const grid = document.getElementById('recommendationsGrid');
+            grid.innerHTML = state.assignedRecommendations.map(product => `
+                <article class="product-card">
+                    <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy">
+                    <div class="product-body">
+                        <p class="product-brand">${product.brand}</p>
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-meta">
+                            <span class="product-price">${product.price.toFixed(2)} €</span>
+                            <span class="product-rating">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                ${product.rating}
+                            </span>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function renderSelection() {
+            const list = document.getElementById('selectionList');
+            list.innerHTML = state.assignedRecommendations.map(product => {
+                const selection = state.selection[product.id];
+                const isKept = selection === 'kept';
+                const isReturned = selection === 'returned';
+                const returnData = state.returns.find(r => r.productId === product.id);
+
+                return `
+                    <div class="selection-card ${isKept ? 'kept' : ''} ${isReturned ? 'returned' : ''}" data-product-id="${product.id}">
+                        <img src="${product.image}" alt="${product.name}" class="selection-image">
+                        <div class="selection-info">
+                            <p class="selection-brand">${product.brand}</p>
+                            <h3 class="selection-name">${product.name}</h3>
+                            <p class="selection-price">${product.price.toFixed(2)} €</p>
+                        </div>
+                        <div class="selection-actions">
+                            <button type="button" class="selection-btn keep ${isKept ? 'active' : ''}" onclick="selectProduct(${product.id}, 'kept')" aria-pressed="${isKept}">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                Me la quedo
+                            </button>
+                            <button type="button" class="selection-btn return ${isReturned ? 'active' : ''}" onclick="selectProduct(${product.id}, 'returned')" aria-pressed="${isReturned}">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                La retorno
+                            </button>
+                        </div>
+                        ${isReturned ? `
+                            <div class="return-reason" id="return-reason-${product.id}">
+                                <p class="return-reason-label">Motiu de retorn:</p>
+                                <div class="return-reason-options">
+                                    ${RETURN_REASONS.map(reason => `
+                                        <button type="button" class="return-reason-btn ${returnData?.reason === reason ? 'active' : ''}" onclick="setReturnReason(${product.id}, '${reason}')">${reason}</button>
+                                    `).join('')}
+                                </div>
+                                <textarea class="return-comment" placeholder="Comentari opcional..." onchange="setReturnComment(${product.id}, this.value)">${returnData?.comment || ''}</textarea>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+
+            updatePaymentButton();
+        }
+
+        function renderOrderSummary() {
+            const summary = document.getElementById('orderSummary');
+            const keptProducts = state.assignedRecommendations.filter(p => state.selection[p.id] === 'kept');
+            const total = keptProducts.reduce((sum, p) => sum + p.price, 0);
+
+            summary.innerHTML = `
+                <h3 class="order-summary-title">Resum de la comanda</h3>
+                ${keptProducts.map(p => `
+                    <div class="order-item">
+                        <span class="order-item-name">${p.name}</span>
+                        <span class="order-item-price">${p.price.toFixed(2)} €</span>
+                    </div>
+                `).join('')}
+                <div class="order-total">
+                    <span>Total</span>
+                    <span>${total.toFixed(2)} €</span>
+                </div>
+            `;
+        }
+
+        function renderConfirmation() {
+            const details = document.getElementById('confirmationDetails');
+            const keptProducts = state.assignedRecommendations.filter(p => state.selection[p.id] === 'kept');
+            const total = keptProducts.reduce((sum, p) => sum + p.price, 0);
+
+            details.innerHTML = `
+                <div class="order-detail-row">
+                    <span class="order-detail-label">Número de comanda</span>
+                    <span class="order-detail-value">${state.order.id}</span>
+                </div>
+                <div class="order-detail-row">
+                    <span class="order-detail-label">Estat</span>
+                    <span class="order-status">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 14px; height: 14px;" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        EN PREPARACIÓ
+                    </span>
+                </div>
+                <div class="order-detail-row">
+                    <span class="order-detail-label">Peces</span>
+                    <span class="order-detail-value">${keptProducts.length} articles</span>
+                </div>
+                <div class="order-detail-row">
+                    <span class="order-detail-label">Total</span>
+                    <span class="order-detail-value">${total.toFixed(2)} €</span>
+                </div>
+                <div class="order-detail-row">
+                    <span class="order-detail-label">Data estimada</span>
+                    <span class="order-detail-value">${formatDate(new Date(state.order.estimatedDelivery))}</span>
+                </div>
+            `;
+        }
+
+        function renderCurrentStep() {
+            if (state.order) {
+                renderStep(5);
+            } else {
+                renderStep(state.currentStep);
+            }
+            
+            // Restore form data if on step 1
+            if (state.currentStep === 1 && state.profile) {
+                restoreProfileForm();
+            }
+        }
+
+        function restoreProfileForm() {
+            const p = state.profile;
+            if (!p) return;
+
+            document.getElementById('name').value = p.name || '';
+            document.getElementById('email').value = p.email || '';
+            document.getElementById('shirtSize').value = p.shirtSize || '';
+            document.getElementById('pantsSize').value = p.pantsSize || '';
+            document.getElementById('shoeSize').value = p.shoeSize || '';
+            document.getElementById('budgetMin').value = p.budgetMin || '';
+            document.getElementById('budgetMax').value = p.budgetMax || '';
+            document.getElementById('notes').value = p.notes || '';
+
+            // Restore style
+            if (p.style) {
+                const styleItem = document.querySelector(`#styleGroup .radio-item input[value="${p.style}"]`);
+                if (styleItem) {
+                    styleItem.closest('.radio-item').classList.add('selected');
+                    styleItem.checked = true;
+                }
+            }
+
+            // Restore checkboxes
+            (p.favoriteColors || []).forEach(color => {
+                const item = document.querySelector(`#favoriteColors .checkbox-item input[value="${color}"]`);
+                if (item) {
+                    item.closest('.checkbox-item').classList.add('selected');
+                    item.checked = true;
+                }
+            });
+
+            (p.avoidColors || []).forEach(color => {
+                const item = document.querySelector(`#avoidColors .checkbox-item input[value="${color}"]`);
+                if (item) {
+                    item.closest('.checkbox-item').classList.add('selected');
+                    item.checked = true;
+                }
+            });
+
+            (p.favoriteBrands || []).forEach(brand => {
+                const item = document.querySelector(`#favoriteBrands .checkbox-item input[value="${brand}"]`);
+                if (item) {
+                    item.closest('.checkbox-item').classList.add('selected');
+                    item.checked = true;
+                }
+            });
+        }
+
+        // ========================================
+        // NAVIGATION
+        // ========================================
+
+        function goToStep(step) {
+            state.currentStep = step;
+            saveState();
+            renderStep(step);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showSection(section) {
+            // Update nav
+            document.querySelectorAll('.navbar-nav a').forEach(link => {
+                link.classList.toggle('active', link.dataset.section === section);
+            });
+
+            // Hide all sections
+            document.getElementById('wizardSection').classList.add('hidden');
+            document.getElementById('catalogSection').classList.add('hidden');
+            document.getElementById('ordersSection').classList.add('hidden');
+            document.getElementById('chatSection').classList.add('hidden');
+            document.getElementById('subscriptionSection').classList.add('hidden');
+            document.getElementById('dataActions').classList.add('hidden');
+
+            // Show selected section
+            if (section === 'wizard') {
+                document.getElementById('wizardSection').classList.remove('hidden');
+                document.getElementById('dataActions').classList.remove('hidden');
+            } else if (section === 'catalog') {
+                document.getElementById('catalogSection').classList.remove('hidden');
+            } else if (section === 'orders') {
+                document.getElementById('ordersSection').classList.remove('hidden');
+            } else if (section === 'chat') {
+                document.getElementById('chatSection').classList.remove('hidden');
+            } else if (section === 'subscription') {
+                document.getElementById('subscriptionSection').classList.remove('hidden');
+            }
+        }
+
+        // ========================================
+        // FORM HANDLING
+        // ========================================
+
+        function getSelectedValues(containerId) {
+            const container = document.getElementById(containerId);
+            const selected = [];
+            container.querySelectorAll('.checkbox-item.selected input, .radio-item.selected input').forEach(input => {
+                selected.push(input.value);
+            });
+            return selected;
+        }
+
+        function validateProfileForm() {
+            let isValid = true;
+            const form = document.getElementById('profileForm');
+
+            // Clear previous errors
+            form.querySelectorAll('.form-group').forEach(group => group.classList.remove('error'));
+
+            // Validate name
+            const name = document.getElementById('name');
+            if (!name.value.trim()) {
+                name.closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+
+            // Validate email
+            const email = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.value.trim() || !emailRegex.test(email.value)) {
+                email.closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+
+            // Validate shirt size
+            const shirtSize = document.getElementById('shirtSize');
+            if (!shirtSize.value) {
+                shirtSize.closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+
+            // Validate style
+            const selectedStyle = document.querySelector('#styleGroup .radio-item.selected');
+            if (!selectedStyle) {
+                document.getElementById('styleGroup').closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+
+            // Validate pants size
+            const pantsSize = document.getElementById('pantsSize');
+            if (!pantsSize.value) {
+                pantsSize.closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+
+            // Validate shoe size
+            const shoeSize = document.getElementById('shoeSize');
+            if (!shoeSize.value) {
+                shoeSize.closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+
+
+            return isValid;
+        }
+
+        function handleProfileSubmit(e) {
+            e.preventDefault();
+
+            if (!validateProfileForm()) {
+                showAlert('Si us plau, completa tots els camps obligatoris.', 'error');
+                return;
+            }
+
+            state.profile = {
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                shirtSize: document.getElementById('shirtSize').value,
+                pantsSize: document.getElementById('pantsSize').value,
+                shoeSize: document.getElementById('shoeSize').value,
+                style: document.querySelector('#styleGroup .radio-item.selected input')?.value,
+                favoriteColors: getSelectedValues('favoriteColors'),
+                avoidColors: getSelectedValues('avoidColors'),
+                favoriteBrands: getSelectedValues('favoriteBrands'),
+                budgetMin: parseFloat(document.getElementById('budgetMin').value) || null,
+                budgetMax: parseFloat(document.getElementById('budgetMax').value) || null,
+                notes: document.getElementById('notes').value.trim()
+            };
+
+            state.timestamps.started = state.timestamps.started || new Date().toISOString();
+            state.timestamps.profileCompleted = new Date().toISOString();
+
+            // Generate recommendations
+            state.assignedRecommendations = generateRecommendations(state.profile);
+
+            // Initialize selection
+            state.assignedRecommendations.forEach(product => {
+                if (!state.selection[product.id]) {
+                    state.selection[product.id] = null;
+                }
+            });
+
+            saveState();
+            goToStep(2);
+            showAlert('Perfil guardat correctament!', 'success');
+        }
+
+        // ========================================
+        // SELECTION HANDLING
+        // ========================================
+
+        function selectProduct(productId, action) {
+            state.selection[productId] = action;
+
+            // If returned, add to returns array if not exists
+            if (action === 'returned') {
+                if (!state.returns.find(r => r.productId === productId)) {
+                    state.returns.push({
+                        productId: productId,
+                        reason: null,
+                        comment: ''
+                    });
+                }
+            } else {
+                // Remove from returns if keeping
+                state.returns = state.returns.filter(r => r.productId !== productId);
+            }
+
+            saveState();
+            renderSelection();
+        }
+
+        function setReturnReason(productId, reason) {
+            const returnItem = state.returns.find(r => r.productId === productId);
+            if (returnItem) {
+                returnItem.reason = reason;
+                saveState();
+                renderSelection();
+            }
+        }
+
+        function setReturnComment(productId, comment) {
+            const returnItem = state.returns.find(r => r.productId === productId);
+            if (returnItem) {
+                returnItem.comment = comment;
+                saveState();
+            }
+        }
+
+        function updatePaymentButton() {
+            const keptCount = Object.values(state.selection).filter(v => v === 'kept').length;
+            const btn = document.getElementById('goToPaymentBtn');
+            btn.disabled = keptCount === 0;
+            btn.innerHTML = keptCount > 0 
+                ? `Anar a pagament (${keptCount} ${keptCount === 1 ? 'peça' : 'peces'})
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>`
+                : `Selecciona almenys una peça
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>`;
+        }
+
+        // ========================================
+        // PAYMENT
+        // ========================================
+
+        function confirmPayment() {
+            const address = document.getElementById('address').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const postalCode = document.getElementById('postalCode').value.trim();
+
+            if (!address || !city || !postalCode) {
+                showAlert('Si us plau, completa la informació d\'enviament.', 'error');
+                return;
+            }
+
+            const keptProducts = state.assignedRecommendations.filter(p => state.selection[p.id] === 'kept');
+            const total = keptProducts.reduce((sum, p) => sum + p.price, 0);
+
+            state.payment = {
+                address: address,
+                city: city,
+                postalCode: postalCode,
+                method: 'card',
+                cardLast4: '4532',
+                total: total
+            };
+
+            state.order = {
+                id: generateOrderId(),
+                status: 'EN_PREPARACIO',
+                createdAt: new Date().toISOString(),
+                estimatedDelivery: addDays(new Date(), 5).toISOString(),
+                items: keptProducts.map(p => ({
+                    productId: p.id,
+                    name: p.name,
+                    brand: p.brand,
+                    price: p.price
+                })),
+                total: total
+            };
+
+            state.timestamps.selectionCompleted = new Date().toISOString();
+            state.timestamps.orderCompleted = new Date().toISOString();
+
+            saveState();
+            goToStep(5);
+            showAlert('Comanda confirmada amb èxit!', 'success');
+        }
+
+        // ========================================
+        // EVENT LISTENERS
+        // ========================================
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved state
+            if (loadState()) {
+                renderCurrentStep();
+            } else {
+                state.timestamps.started = new Date().toISOString();
+                saveState();
+            }
+
+            // Profile form submit
+            document.getElementById('profileForm').addEventListener('submit', handleProfileSubmit);
+
+            // Checkbox/Radio toggle
+            document.querySelectorAll('.checkbox-item, .radio-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (e.target.tagName === 'INPUT') return;
+                    
+                    const input = this.querySelector('input');
+                    const isRadio = input.type === 'radio';
+
+                    if (isRadio) {
+                        // Deselect all in group
+                        this.closest('.radio-group').querySelectorAll('.radio-item').forEach(ri => {
+                            ri.classList.remove('selected');
+                            ri.querySelector('input').checked = false;
+                        });
+                        this.classList.add('selected');
+                        input.checked = true;
+                    } else {
+                        // Toggle checkbox
+                        this.classList.toggle('selected');
+                        input.checked = this.classList.contains('selected');
+                    }
+                });
+
+                // Keyboard support
+                item.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+
+            // Navigation links
+            document.querySelectorAll('.navbar-nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showSection(this.dataset.section);
+                });
+            });
+
+            // Auto-save on input change
+            document.querySelectorAll('input, select, textarea').forEach(input => {
+                input.addEventListener('change', function() {
+                    // Only auto-save if we're past step 1
+                    if (state.currentStep > 1) {
+                        saveState();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
